@@ -63,3 +63,4 @@ fastlane/test_output
 
 Cronos/GoogleService-Info.plist
 Cronos/Keys.plist
+.DS_Store
