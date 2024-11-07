@@ -8,7 +8,7 @@
 import Foundation
 
 struct PostSubclassRequest: Codable {
-    var key: String? = getKey()
+    var key: String? = getCronosKey()
     var groupName: String
     var domainName: String
     var subclass: Subclass

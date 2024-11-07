@@ -8,6 +8,6 @@
 import Foundation
 
 struct PutProductRequest: Codable {
-    var key: String? = getKey()
+    var key: String? = getCronosKey()
     var product: ProductDto
 }

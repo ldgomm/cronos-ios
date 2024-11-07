@@ -8,6 +8,6 @@
 import Foundation
 
 struct PostGroupRequest: Codable {
-    var key: String? = getKey()
+    var key: String? = getCronosKey()
     var group: Group
 }

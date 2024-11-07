@@ -7,10 +7,6 @@
 
 import Foundation
 
-//func getKey() -> String {
-//    return ""
-//}
-
 func getCronosKey() -> String? {
     if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
        let keys = NSDictionary(contentsOfFile: path) as? [String: AnyObject],

@@ -8,7 +8,7 @@
 import Foundation
 
 struct PostDomainRequest: Codable {
-    var key: String? = getKey()
+    var key: String? = getCronosKey()
     var groupName: String
     var domain: Domain
 }
