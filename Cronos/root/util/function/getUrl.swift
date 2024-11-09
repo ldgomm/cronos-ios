@@ -8,7 +8,7 @@
 import Foundation
 
 func getUrl(endpoint: String, id: String? = nil, keywords: String? = nil) -> URL {
-    var components = URLComponents(string: "https://goldfish-app-ai4af.ondigitalocean.app/\(endpoint)")!
+    var components = URLComponents(string: "https://www.sales.premierdarkcoffee.com/\(endpoint)")!
     if let id {
         components.queryItems = [URLQueryItem(name: "id", value: id)]
     }

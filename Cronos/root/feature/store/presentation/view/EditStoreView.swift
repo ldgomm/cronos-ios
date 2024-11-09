@@ -27,6 +27,7 @@ struct EditStoreView: View {
     @State private var refundPolicy: String
     @State private var description: String
     @State private var brands: String
+    
     @State private var isActive: Bool
     @State private var isVerified: Bool
     @State private var isPromoted: Bool

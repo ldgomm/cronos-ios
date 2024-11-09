@@ -27,7 +27,7 @@ class StoreViewModel: ObservableObject {
     }
     
     func searchStoresByName(for keywords: String? = nil) {
-        searchStoresByNameUseCase.invoke(from: getUrl(endpoint: "sales-store", keywords: keywords))
+        searchStoresByNameUseCase.invoke(from: getUrl(endpoint: "cronos-store", keywords: keywords))
             .sink { (result: Result<[StoreDto], NetworkError>) in
                 switch result {
                 case .success(let store):
@@ -40,7 +40,7 @@ class StoreViewModel: ObservableObject {
     }
     
     func updateStore(_ store: StoreDto) {
-        putStoreUseCase.invoke(from: getUrl(endpoint: "sales-store"), with: PutStoreRequest(store: store))
+        putStoreUseCase.invoke(from: getUrl(endpoint: "cronos-store"), with: PutStoreRequest(store: store))
             .sink { (result: Result<MessageResponse, NetworkError>) in
                 switch result {
                 case .success(let success):

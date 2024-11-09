@@ -34,7 +34,7 @@ final class ProductViewModel: ObservableObject {
      This function retrieves all products from the server.
      */
     func getProducts() {
-        getProductsUseCase.invoke(from: getUrl(endpoint: "pgup-products"))
+        getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-products"))
             .sink { (result: Result<[ProductDto], NetworkError>) in
                 switch result {
                 case .success(let success):
@@ -67,7 +67,7 @@ final class ProductViewModel: ObservableObject {
             return
         }
         getProductByKeywordsUseCase.invoke(
-            from: getUrl(endpoint: "products", keywords: keywords)
+            from: getUrl(endpoint: "cronos-products", keywords: keywords)
         )
         .sink { (result: Result<[ProductDto], NetworkError>) in
             switch result {
@@ -91,7 +91,7 @@ final class ProductViewModel: ObservableObject {
         onFailure: @escaping (String) -> Void
     ) {
         postProductUseCase.invoke(
-            from: getUrl(endpoint: "products"),
+            from: getUrl(endpoint: "cronos-products"),
             with: PostProductRequest(product: product.toProductDto())
         )
         .sink { (result: Result<MessageResponse, NetworkError>) in
@@ -116,7 +116,7 @@ final class ProductViewModel: ObservableObject {
         onFailure: @escaping (String) -> Void
     ) {
         putProductUseCase.invoke(
-            from: getUrl(endpoint: "products"),
+            from: getUrl(endpoint: "cronos-products"),
             with: PutProductRequest(product: product.toProductDto())
         )
         .sink { (result: Result<MessageResponse, NetworkError>) in
@@ -140,7 +140,7 @@ final class ProductViewModel: ObservableObject {
         onFailure: @escaping (String) -> Void
     ) {
         deleteProductUseCase.invoke(
-            from: getUrl(endpoint: "products"),
+            from: getUrl(endpoint: "cronos-products"),
             with: DeleteProductRequest(productId: product.id))
         .sink { (result: Result<MessageResponse, NetworkError>) in
             switch result {

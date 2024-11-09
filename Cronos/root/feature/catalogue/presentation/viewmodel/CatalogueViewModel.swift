@@ -34,7 +34,7 @@ final class CatalogueViewModel: ObservableObject {
      This function retrieves all products from the server.
      */
     func getProducts() {
-        getProductsUseCase.invoke(from: getUrl(endpoint: "catalogue"))
+        getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-catalogue"))
             .sink { (result: Result<[ProductDto], NetworkError>) in
                 switch result {
                 case .success(let success):
@@ -67,7 +67,7 @@ final class CatalogueViewModel: ObservableObject {
             return
         }
         getProductByKeywordsUseCase.invoke(
-            from: getUrl(endpoint: "catalogue", keywords: keywords)
+            from: getUrl(endpoint: "cronos-catalogue", keywords: keywords)
         )
         .sink { (result: Result<[ProductDto], NetworkError>) in
             switch result {

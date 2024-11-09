@@ -20,6 +20,9 @@ final class Service: Serviceable {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -72,6 +75,9 @@ final class Service: Serviceable {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -117,6 +123,9 @@ final class Service: Serviceable {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -170,6 +179,9 @@ final class Service: Serviceable {
         request.httpMethod = "POST"
         request.httpBody = try? JSONEncoder().encode(data)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { (data: Data, response: URLResponse) in
@@ -235,6 +247,9 @@ final class Service: Serviceable {
         request.httpMethod = "PUT"
         request.httpBody = try? JSONEncoder().encode(data)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -289,6 +304,9 @@ final class Service: Serviceable {
         request.httpMethod = "PATCH"
         request.httpBody = try? JSONEncoder().encode(data)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
@@ -343,6 +361,9 @@ final class Service: Serviceable {
         request.httpMethod = "DELETE"
         request.httpBody = try? JSONEncoder().encode(data)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let apiKey = KeychainHelper.shared.read(forKey: "bearer") {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
         
         // Perform the DELETE request using URLSession's dataTaskPublisher.
         return URLSession.shared.dataTaskPublisher(for: request)

@@ -10,9 +10,15 @@ import SwiftUI
 
 @main
 struct CronosApp: App {
+    @AppStorage("isAuthenticated") var isAuthenticated: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isAuthenticated {
+                ContentView()
+            } else {
+                AuthenticationView()
+            }
         }
     }
     
