@@ -40,7 +40,6 @@ struct AuthenticationView: View {
                 }) {
                     Text("Validate")
                 }
-//                .disabled(!isValidKey)
                 .padding()
             }
         }
