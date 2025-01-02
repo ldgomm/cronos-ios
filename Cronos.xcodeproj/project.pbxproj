@@ -1,0 +1,648 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ACB88AB42CD53FC8002CA6B7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ACB88AB32CD53FC8002CA6B7 /* FirebaseAuth */; };
+		ACB88AB62CD53FC8002CA6B7 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = ACB88AB52CD53FC8002CA6B7 /* FirebaseAuthCombine-Community */; };
+		ACB88AB82CD53FC8002CA6B7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ACB88AB72CD53FC8002CA6B7 /* FirebaseFirestore */; };
+		ACB88ABA2CD53FC8002CA6B7 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = ACB88AB92CD53FC8002CA6B7 /* FirebaseFirestoreCombine-Community */; };
+		ACB88ABC2CD53FC8002CA6B7 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ACB88ABB2CD53FC8002CA6B7 /* FirebaseStorage */; };
+		ACB88ABE2CD53FC8002CA6B7 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = ACB88ABD2CD53FC8002CA6B7 /* FirebaseStorageCombine-Community */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ACB8895F2CD53DCB002CA6B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACB889462CD53DC9002CA6B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACB8894D2CD53DC9002CA6B7;
+			remoteInfo = Cronos;
+		};
+		ACB889692CD53DCB002CA6B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACB889462CD53DC9002CA6B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACB8894D2CD53DC9002CA6B7;
+			remoteInfo = Cronos;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ACB8894E2CD53DC9002CA6B7 /* Cronos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cronos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB8895E2CD53DCB002CA6B7 /* CronosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB889682CD53DCB002CA6B7 /* CronosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CronosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		ACB889502CD53DC9002CA6B7 /* Cronos */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Cronos;
+			sourceTree = "<group>";
+		};
+		ACB889612CD53DCB002CA6B7 /* CronosTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CronosTests;
+			sourceTree = "<group>";
+		};
+		ACB8896B2CD53DCB002CA6B7 /* CronosUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CronosUITests;
+			sourceTree = "<group>";
+		};
+		ACB88ABF2CD54053002CA6B7 /* en.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		ACB88AC02CD5405A002CA6B7 /* es.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = es.lproj;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ACB8894B2CD53DC9002CA6B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACB88AB42CD53FC8002CA6B7 /* FirebaseAuth in Frameworks */,
+				ACB88ABA2CD53FC8002CA6B7 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				ACB88AB62CD53FC8002CA6B7 /* FirebaseAuthCombine-Community in Frameworks */,
+				ACB88ABC2CD53FC8002CA6B7 /* FirebaseStorage in Frameworks */,
+				ACB88ABE2CD53FC8002CA6B7 /* FirebaseStorageCombine-Community in Frameworks */,
+				ACB88AB82CD53FC8002CA6B7 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACB8895B2CD53DCB002CA6B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACB889652CD53DCB002CA6B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ACB889452CD53DC9002CA6B7 = {
+			isa = PBXGroup;
+			children = (
+				ACB889502CD53DC9002CA6B7 /* Cronos */,
+				ACB889612CD53DCB002CA6B7 /* CronosTests */,
+				ACB8896B2CD53DCB002CA6B7 /* CronosUITests */,
+				ACB88ABF2CD54053002CA6B7 /* en.lproj */,
+				ACB88AC02CD5405A002CA6B7 /* es.lproj */,
+				ACB8894F2CD53DC9002CA6B7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ACB8894F2CD53DC9002CA6B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ACB8894E2CD53DC9002CA6B7 /* Cronos.app */,
+				ACB8895E2CD53DCB002CA6B7 /* CronosTests.xctest */,
+				ACB889682CD53DCB002CA6B7 /* CronosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ACB8894D2CD53DC9002CA6B7 /* Cronos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACB889722CD53DCB002CA6B7 /* Build configuration list for PBXNativeTarget "Cronos" */;
+			buildPhases = (
+				ACB8894A2CD53DC9002CA6B7 /* Sources */,
+				ACB8894B2CD53DC9002CA6B7 /* Frameworks */,
+				ACB8894C2CD53DC9002CA6B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				ACB889502CD53DC9002CA6B7 /* Cronos */,
+				ACB88ABF2CD54053002CA6B7 /* en.lproj */,
+				ACB88AC02CD5405A002CA6B7 /* es.lproj */,
+			);
+			name = Cronos;
+			packageProductDependencies = (
+				ACB88AB32CD53FC8002CA6B7 /* FirebaseAuth */,
+				ACB88AB52CD53FC8002CA6B7 /* FirebaseAuthCombine-Community */,
+				ACB88AB72CD53FC8002CA6B7 /* FirebaseFirestore */,
+				ACB88AB92CD53FC8002CA6B7 /* FirebaseFirestoreCombine-Community */,
+				ACB88ABB2CD53FC8002CA6B7 /* FirebaseStorage */,
+				ACB88ABD2CD53FC8002CA6B7 /* FirebaseStorageCombine-Community */,
+			);
+			productName = Cronos;
+			productReference = ACB8894E2CD53DC9002CA6B7 /* Cronos.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ACB8895D2CD53DCB002CA6B7 /* CronosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACB889752CD53DCB002CA6B7 /* Build configuration list for PBXNativeTarget "CronosTests" */;
+			buildPhases = (
+				ACB8895A2CD53DCB002CA6B7 /* Sources */,
+				ACB8895B2CD53DCB002CA6B7 /* Frameworks */,
+				ACB8895C2CD53DCB002CA6B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACB889602CD53DCB002CA6B7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				ACB889612CD53DCB002CA6B7 /* CronosTests */,
+			);
+			name = CronosTests;
+			packageProductDependencies = (
+			);
+			productName = CronosTests;
+			productReference = ACB8895E2CD53DCB002CA6B7 /* CronosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ACB889672CD53DCB002CA6B7 /* CronosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACB889782CD53DCB002CA6B7 /* Build configuration list for PBXNativeTarget "CronosUITests" */;
+			buildPhases = (
+				ACB889642CD53DCB002CA6B7 /* Sources */,
+				ACB889652CD53DCB002CA6B7 /* Frameworks */,
+				ACB889662CD53DCB002CA6B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACB8896A2CD53DCB002CA6B7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				ACB8896B2CD53DCB002CA6B7 /* CronosUITests */,
+			);
+			name = CronosUITests;
+			packageProductDependencies = (
+			);
+			productName = CronosUITests;
+			productReference = ACB889682CD53DCB002CA6B7 /* CronosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ACB889462CD53DC9002CA6B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					ACB8894D2CD53DC9002CA6B7 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					ACB8895D2CD53DCB002CA6B7 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = ACB8894D2CD53DC9002CA6B7;
+					};
+					ACB889672CD53DCB002CA6B7 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = ACB8894D2CD53DC9002CA6B7;
+					};
+				};
+			};
+			buildConfigurationList = ACB889492CD53DC9002CA6B7 /* Build configuration list for PBXProject "Cronos" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				es,
+			);
+			mainGroup = ACB889452CD53DC9002CA6B7;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = ACB8894F2CD53DC9002CA6B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ACB8894D2CD53DC9002CA6B7 /* Cronos */,
+				ACB8895D2CD53DCB002CA6B7 /* CronosTests */,
+				ACB889672CD53DCB002CA6B7 /* CronosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ACB8894C2CD53DC9002CA6B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACB8895C2CD53DCB002CA6B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACB889662CD53DCB002CA6B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ACB8894A2CD53DC9002CA6B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACB8895A2CD53DCB002CA6B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACB889642CD53DCB002CA6B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ACB889602CD53DCB002CA6B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACB8894D2CD53DC9002CA6B7 /* Cronos */;
+			targetProxy = ACB8895F2CD53DCB002CA6B7 /* PBXContainerItemProxy */;
+		};
+		ACB8896A2CD53DCB002CA6B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACB8894D2CD53DC9002CA6B7 /* Cronos */;
+			targetProxy = ACB889692CD53DCB002CA6B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		ACB889702CD53DCB002CA6B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ACB889712CD53DCB002CA6B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ACB889732CD53DCB002CA6B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cronos/Preview Content\"";
+				DEVELOPMENT_TEAM = 5KDK28ZYPD;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.premierdarkcoffee.sales.Cronos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ACB889742CD53DCB002CA6B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Cronos/Preview Content\"";
+				DEVELOPMENT_TEAM = 5KDK28ZYPD;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.premierdarkcoffee.sales.Cronos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ACB889762CD53DCB002CA6B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KDK28ZYPD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.premierdarkcoffee.sales.CronosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cronos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cronos";
+			};
+			name = Debug;
+		};
+		ACB889772CD53DCB002CA6B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KDK28ZYPD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.premierdarkcoffee.sales.CronosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cronos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cronos";
+			};
+			name = Release;
+		};
+		ACB889792CD53DCB002CA6B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KDK28ZYPD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.premierdarkcoffee.sales.CronosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cronos;
+			};
+			name = Debug;
+		};
+		ACB8897A2CD53DCB002CA6B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5KDK28ZYPD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.premierdarkcoffee.sales.CronosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cronos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ACB889492CD53DC9002CA6B7 /* Build configuration list for PBXProject "Cronos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACB889702CD53DCB002CA6B7 /* Debug */,
+				ACB889712CD53DCB002CA6B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACB889722CD53DCB002CA6B7 /* Build configuration list for PBXNativeTarget "Cronos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACB889732CD53DCB002CA6B7 /* Debug */,
+				ACB889742CD53DCB002CA6B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACB889752CD53DCB002CA6B7 /* Build configuration list for PBXNativeTarget "CronosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACB889762CD53DCB002CA6B7 /* Debug */,
+				ACB889772CD53DCB002CA6B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACB889782CD53DCB002CA6B7 /* Build configuration list for PBXNativeTarget "CronosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACB889792CD53DCB002CA6B7 /* Debug */,
+				ACB8897A2CD53DCB002CA6B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACB88AB32CD53FC8002CA6B7 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		ACB88AB52CD53FC8002CA6B7 /* FirebaseAuthCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		ACB88AB72CD53FC8002CA6B7 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		ACB88AB92CD53FC8002CA6B7 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		ACB88ABB2CD53FC8002CA6B7 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		ACB88ABD2CD53FC8002CA6B7 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACB88AB22CD53FC8002CA6B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = ACB889462CD53DC9002CA6B7 /* Project object */;
+}
