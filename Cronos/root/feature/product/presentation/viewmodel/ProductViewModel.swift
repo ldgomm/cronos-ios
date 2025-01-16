@@ -10,6 +10,8 @@ import Foundation
 
 final class ProductViewModel: ObservableObject {
     @Published private(set) var products: [Product] = []
+    private var allProducts: [Product] = []
+    
     @Published var groups: [Group] = []
     
     private var cancellables: Set<AnyCancellable> = []
@@ -30,55 +32,53 @@ final class ProductViewModel: ObservableObject {
         getCategories()
     }
     
-    /**
-     This function retrieves all products from the server.
-     */
+    //                    success.filter { $0.category.group == "Licores" }
+    //                     .sorted {
+    //                     if $0.label == $1.label {
+    //                         return $0.name < $1.name
+    //                     }
+    //                         return $0.label ?? "" < $1.label ?? ""
+    //                     }
+    //                     .forEach { product in
+    //                         print("\(product.name) - \(product.label ?? "") - \(product.owner ?? "")")
+    //                     }
+    
     func getProducts() {
         getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-products"))
             .sink { (result: Result<[ProductDto], NetworkError>) in
                 switch result {
                 case .success(let success):
-                    success.filter { $0.category.group == "Licores" }
-                     .sorted {
-                     if $0.label == $1.label {
-                     return $0.name < $1.name
-                     }
-                     return $0.label ?? "" < $1.label ?? ""
-                     }
-                     .forEach { product in
-                     print("\(product.name) - \(product.label ?? "") - \(product.owner ?? "")")
-                     }
-                    
-                    self.products = success.map { $0.toProduct() }
+                    let loadedProducts = success.map { $0.toProduct() }
+                    self.allProducts = loadedProducts
+                    self.products = loadedProducts
                 case .failure(let failure):
                     handleNetworkFailure(failure)
                 }
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
     }
     
-    /**
-     This function retrieves a product from the server using its keywords.
-     - Parameter keywords: The keywords of the product to retrieve.
-     */
     func getProductByKeywords(for keywords: String) {
-        print("Keywords called")
         guard !keywords.isEmpty else {
-            getProducts()
+            restoreAllProducts()
             return
         }
-        getProductByKeywordsUseCase.invoke(
-            from: getUrl(endpoint: "cronos-products", keywords: keywords)
-        )
-        .sink { (result: Result<[ProductDto], NetworkError>) in
-            switch result {
-            case .success(let success):
-                print("Matches: \(success.count)")
-                self.products = success.map { $0.toProduct() }
-            case .failure(let failure):
-                handleNetworkFailure(failure)
-            }
+        products = allProducts.filter { product in
+            searchProduct(product, matches: keywords)
         }
-        .store(in: &cancellables)
+    }
+    
+    private func searchProduct(_ product: Product, matches keywords: String) -> Bool {
+        let lowerQuery = keywords.lowercased()
+        return product.name.lowercased().contains(lowerQuery)
+        || (product.label?.lowercased().contains(lowerQuery) ?? false)
+        || product.description.lowercased().contains(lowerQuery)
+        || (product.owner?.lowercased().contains(lowerQuery) ?? false)
+        || product.model.lowercased().contains(lowerQuery)
+    }
+    
+    func restoreAllProducts() {
+        products = allProducts
     }
     
     /**

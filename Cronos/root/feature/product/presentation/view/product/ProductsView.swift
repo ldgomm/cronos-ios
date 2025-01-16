@@ -54,15 +54,32 @@ struct ProductsView: View {
             }
             .navigationTitle(String(format: NSLocalizedString("products_count", comment: ""), filteredProducts.count))
             .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(for: Product.self) { product in
+                ProductView(product: product)
+                    .environmentObject(viewModel)
+            }
+            .refreshable {
+                viewModel.getProducts()
+                viewModel.getCategories()
+            }
+            
             .searchable(text: $searchText)
-            .onChange(of: searchText) { _, newValue in
+            .onChange(of: searchText) { oldValue, newValue in
+                // Cancel the previous scheduled work item (if any) to avoid spamming filters
                 searchWorkItem?.cancel()
+                
                 let newWorkItem = DispatchWorkItem {
-                    if searchText.count >= 3 {
+                    if newValue.count >= 3 {
+                        // Only filter when user has typed 3 or more characters
                         viewModel.getProductByKeywords(for: newValue)
+                    } else {
+                        // If fewer than 3 chars (or empty), restore the full list
+                        viewModel.restoreAllProducts()
                     }
                 }
+                
                 searchWorkItem = newWorkItem
+                // Debounce for 1 second (adjust as needed)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: newWorkItem)
             }
             .toolbar {
@@ -72,17 +89,10 @@ struct ProductsView: View {
                     Label("Add", systemImage: "plus")
                 }
             }
-            .navigationDestination(for: Product.self) { product in
-                ProductView(product: product)
-                    .environmentObject(viewModel)
-            }
         }
         .sheet(isPresented: $addProduct) {
             AddEditProductView(popToRoot: {})
                 .environmentObject(viewModel)
-        }
-        .refreshable {
-            viewModel.getProducts()
         }
     }
 }

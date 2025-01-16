@@ -9,8 +9,12 @@ import Foundation
 
 struct DependencyInjector {
     private static var dependencyList: [String: Any] = [:]
+    private static let lock = NSLock()
     
     static func inject<T>() -> T {
+        lock.lock()
+        defer { lock.unlock() }
+        
         guard let t = dependencyList[String(describing: T.self)] as? T else {
             fatalError("No provider registered for type: \(T.self)")
         }
@@ -18,6 +22,9 @@ struct DependencyInjector {
     }
     
     static func singleton<T>(dependency: T) {
+        lock.lock()
+        defer { lock.unlock() }
+        
         dependencyList[String(describing: T.self)] = dependency
     }
 }
@@ -27,7 +34,7 @@ struct DependencyInjector {
     
     init() {
         self.wrappedValue = DependencyInjector.inject()
-        print("\(self.wrappedValue) injected")
+        print("Injected dependency of type \(T.self): \(wrappedValue)")
     }
 }
 
@@ -37,13 +44,13 @@ struct DependencyInjector {
     init(wrappedValue: T) {
         self.wrappedValue = wrappedValue
         DependencyInjector.singleton(dependency: wrappedValue)
-        print("\(self.wrappedValue) created")
+        print("Created singleton of type \(T.self): \(wrappedValue)")
     }
 }
 
 class Singletons {
-    
-    init () {
+    init() {
         @Singleton var serviceable: Serviceable = Service() as Serviceable
+        // ...
     }
 }
