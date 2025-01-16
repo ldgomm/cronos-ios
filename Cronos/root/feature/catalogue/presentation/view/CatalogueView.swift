@@ -15,7 +15,6 @@ struct CatalogueView: View {
     @State private var selectedGroup: Group? = nil
     @State private var selectedDomain: Domain? = nil
     @State private var selectedSubclass: Subclass? = nil
-    
     @State private var hideFilterView: Bool = false
     @State private var previousScrollOffset: CGFloat = 0
     @State private var currentScrollOffset: CGFloat = 0
@@ -34,7 +33,13 @@ struct CatalogueView: View {
         NavigationStack {
             VStack {
                 if !hideFilterView {
-                    FilterView(selectedGroup: $selectedGroup, selectedDomain: $selectedDomain, selectedSubclass: $selectedSubclass, groups: viewModel.groups, products: viewModel.products)
+                    FilterView(
+                        selectedGroup: $selectedGroup,
+                        selectedDomain: $selectedDomain,
+                        selectedSubclass: $selectedSubclass,
+                        groups: viewModel.groups,
+                        products: viewModel.products
+                    )
                         .transition(.move(edge: .top))
                         .animation(.easeInOut, value: hideFilterView)
                 }
