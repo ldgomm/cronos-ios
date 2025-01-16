@@ -58,23 +58,50 @@ final class ProductViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // Filter the array by multiple keywords across multiple fields
     func getProductByKeywords(for keywords: String) {
+        // If there’s no input, restore the original full list
         guard !keywords.isEmpty else {
             restoreAllProducts()
             return
         }
-        products = allProducts.filter { product in
-            searchProduct(product, matches: keywords)
+        
+        // Split input into separate search terms
+        // e.g., "cronos bike black" -> ["cronos", "bike", "black"]
+        let terms = keywords
+            .lowercased()
+            .split(separator: " ")
+            .map(String.init)
+        
+        // 1) For each product, figure out how many of the 'terms' match
+        let productsWithMatchCount = allProducts.map { product -> (product: Product, matchCount: Int) in
+            let matchCount = terms.reduce(into: 0) { count, term in
+                if fieldMatches(product, term: term) {
+                    count += 1
+                }
+            }
+            return (product, matchCount)
         }
+        
+        // 2) Filter out products that have zero matches
+        //    (i.e., keep products with matchCount >= 1)
+        let matchingProducts = productsWithMatchCount
+            .filter { $0.matchCount > 0 }
+        
+        // 3) Sort the resulting products by matchCount, descending
+        let sortedByMatches = matchingProducts.sorted { $0.matchCount > $1.matchCount }
+        
+        // 4) Extract just the Product objects in sorted order
+        products = sortedByMatches.map { $0.product }
     }
-    
-    private func searchProduct(_ product: Product, matches keywords: String) -> Bool {
-        let lowerQuery = keywords.lowercased()
-        return product.name.lowercased().contains(lowerQuery)
-        || (product.label?.lowercased().contains(lowerQuery) ?? false)
-        || product.description.lowercased().contains(lowerQuery)
-        || (product.owner?.lowercased().contains(lowerQuery) ?? false)
-        || product.model.lowercased().contains(lowerQuery)
+
+    private func fieldMatches(_ product: Product, term: String) -> Bool {
+        product.name.lowercased().contains(term)
+        || (product.label?.lowercased().contains(term) ?? false)
+        || product.description.lowercased().contains(term)
+        || (product.owner?.lowercased().contains(term) ?? false)
+        || product.model.lowercased().contains(term)
+        // ... add more fields if needed
     }
     
     func restoreAllProducts() {
