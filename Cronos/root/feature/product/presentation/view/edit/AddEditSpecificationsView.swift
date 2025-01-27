@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddSpecificationsView: View {
     @Environment(\.dismiss) var dismiss
-
+    
     @State private var colours: [String] = []
     @State private var finished: String = ""
     @State private var inBox: [String] = []
@@ -180,7 +180,7 @@ struct AddSpecificationsView: View {
             showAlert = true
             return
         }
-
+        
         let size = Size(width: widthValue, height: heightValue, depth: depthValue, unit: sizeUnit)
         let weight = Weight(weight: weightValue, unit: weightUnit)
         let specifications = Specifications(colours: colours, finished: finished, inBox: inBox, size: size, weight: weight)
@@ -188,7 +188,7 @@ struct AddSpecificationsView: View {
         popToAddEditProductView(specifications)
         dismiss()
     }
-
+    
     private func validationMessage(for field: String) -> some View {
         let message: String
         switch field {

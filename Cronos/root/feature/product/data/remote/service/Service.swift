@@ -53,7 +53,7 @@ final class Service: Serviceable {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-
+    
     /**
      This function performs a GET request to retrieve data from the specified URL, expecting a redirection (status code 302).
      - Parameters:
@@ -106,8 +106,8 @@ final class Service: Serviceable {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-
-
+    
+    
     func getDataByKeywords<T>(from url: URL) -> AnyPublisher<Result<T, NetworkError>, Never> where T: Decodable {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -154,7 +154,7 @@ final class Service: Serviceable {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-
+    
     
     /**
      This function performs a POST request to send data to the specified URL.
@@ -177,7 +177,7 @@ final class Service: Serviceable {
                 guard let response = response as? HTTPURLResponse else {
                     throw NetworkError.badRequestError
                 }
-
+                
                 switch response.statusCode {
                 case 200, 201:
                     // Expect JSON data here for successful requests.
@@ -191,7 +191,7 @@ final class Service: Serviceable {
                         print("Failed to decode response: \(decodingError)")
                         throw NetworkError.decodeError(underlying: decodingError)
                     }
-
+                    
                 case 401:
                     throw NetworkError.unauthorizedError
                 case 403:
@@ -220,8 +220,8 @@ final class Service: Serviceable {
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
-
-
+        
+        
     }
     
     /**
@@ -245,7 +245,7 @@ final class Service: Serviceable {
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw NetworkError.badRequestError
                 }
-
+                
                 // Handle different status codes explicitly
                 switch httpResponse.statusCode {
                 case 202:
@@ -279,7 +279,7 @@ final class Service: Serviceable {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-
+    
     
     /**
      This function performs a PATCH request to update data at the specified URL.
@@ -302,7 +302,7 @@ final class Service: Serviceable {
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw NetworkError.badRequestError
                 }
-
+                
                 // Handle status codes
                 switch httpResponse.statusCode {
                 case 202:
@@ -337,7 +337,7 @@ final class Service: Serviceable {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-
+    
     
     /**
      This function performs a DELETE request to delete data at the specified URL.

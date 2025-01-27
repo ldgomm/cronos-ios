@@ -13,56 +13,56 @@ protocol Serviceable {
     /**
      This function performs a GET request to retrieve data from the specified URL.
      - Parameters:
-       - url: The URL from which to retrieve data.
+     - url: The URL from which to retrieve data.
      - Returns: A publisher emitting a Result type with the retrieved data or a NetworkError.
      */
     func getData<T: Decodable>(from url: URL) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
     /**
      This function performs a GET request to retrieve data from the specified URL, expecting a redirection (status code 302).
      - Parameters:
-       - url: The URL from which to retrieve data.
+     - url: The URL from which to retrieve data.
      - Returns: A publisher emitting a Result type with the retrieved data or a NetworkError.
      */
     func getDataById<T: Decodable>(from url: URL) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
     
     func getDataByKeywords<T: Decodable>(from url: URL) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
     /**
      This function performs a POST request to send data to the specified URL.
      - Parameters:
-       - url: The URL to which to send data.
-       - data: The data to be sent, conforming to the Encodable protocol.
+     - url: The URL to which to send data.
+     - data: The data to be sent, conforming to the Encodable protocol.
      - Returns: A publisher emitting a Result type with the response data or a NetworkError.
      */
     func postData<T: Decodable, U: Encodable>(from url: URL, with data: U) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
     /**
      This function performs a PUT request to update data at the specified URL.
      - Parameters:
-       - url: The URL at which to update data.
-       - data: The data to be updated, conforming to the Encodable protocol.
+     - url: The URL at which to update data.
+     - data: The data to be updated, conforming to the Encodable protocol.
      - Returns: A publisher emitting a Result type with the response data or a NetworkError.
      */
     func putData<T: Decodable, U: Encodable>(from url: URL, with data: U) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
     /**
      This function performs a PATCH request to update data at the specified URL.
      - Parameters:
-       - url: The URL at which to update data.
-       - data: The data to be updated, conforming to the Encodable protocol.
+     - url: The URL at which to update data.
+     - data: The data to be updated, conforming to the Encodable protocol.
      - Returns: A publisher emitting a Result type with the response data or a NetworkError.
      */
     func patchData<T: Decodable, U: Encodable>(from url: URL, with data: U) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
     /**
      This function performs a DELETE request to delete data from the specified URL.
      - Parameter url: The URL from which to delete data.
      - Returns: A publisher emitting a Result type with the response data or a NetworkError.
      */
     func deleteData<T: Decodable, U: Encodable>(from url: URL, with data: U) -> AnyPublisher<Result<T, NetworkError>, Never>
-
+    
 }
 
 enum NetworkError: Error {

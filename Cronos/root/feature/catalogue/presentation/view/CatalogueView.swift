@@ -40,8 +40,8 @@ struct CatalogueView: View {
                         groups: viewModel.groups,
                         products: viewModel.products
                     )
-                        .transition(.move(edge: .top))
-                        .animation(.easeInOut, value: hideFilterView)
+                    .transition(.move(edge: .top))
+                    .animation(.easeInOut, value: hideFilterView)
                 }
                 
                 ScrollView {

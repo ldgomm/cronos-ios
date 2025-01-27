@@ -12,14 +12,14 @@ struct CachedAsyncImage<Content>: View where Content: View {
     private let scale: CGFloat
     private let transaction: Transaction
     private let content: (AsyncImagePhase) -> Content
-
+    
     init(url: URL, scale: CGFloat = 1.0, transaction: Transaction = Transaction(), @ViewBuilder content: @escaping (AsyncImagePhase) -> Content) {
         self.url = url
         self.scale = scale
         self.transaction = transaction
         self.content = content
     }
-
+    
     var body: some View {
         if let cached = ImageCache[url] {
             let _ = print("cached \(url.absoluteString)")
@@ -31,12 +31,12 @@ struct CachedAsyncImage<Content>: View where Content: View {
             }
         }
     }
-
+    
     func cacheAndRender(phase: AsyncImagePhase) -> some View {
         if case .success(let image) = phase {
             ImageCache[url] = image
         }
-
+        
         return content(phase)
     }
 }
@@ -44,7 +44,7 @@ struct CachedAsyncImage<Content>: View where Content: View {
 fileprivate class ImageCache {
     private static var cache: [URL: Image] = [:]
     private static let queue = DispatchQueue(label: "ImageCacheQueue", attributes: .concurrent)
-
+    
     static subscript(url: URL) -> Image? {
         get {
             var image: Image?

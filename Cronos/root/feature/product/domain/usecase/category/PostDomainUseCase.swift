@@ -10,7 +10,7 @@ import Foundation
 
 class PostDomainUseCase {
     @Inject var serviceable: Serviceable
-
+    
     /**
      This function invokes the get data operation from the provided URL using the injected service.
      - Parameter url: The URL from which to retrieve data.

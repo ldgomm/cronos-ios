@@ -14,7 +14,7 @@ class CommaReplacingFormatter: Formatter {
         }
         return nil
     }
-
+    
     override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         obj?.pointee = string.replacingOccurrences(of: ",", with: ".") as AnyObject
         return true

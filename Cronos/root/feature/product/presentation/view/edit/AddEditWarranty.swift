@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddEditWarranty: View {
     @Environment(\.dismiss) var dismiss
-
+    
     @State private var hasWarranty: Bool = false
     @State private var details: [String] = []
     @State private var months: Int = 0
@@ -20,7 +20,7 @@ struct AddEditWarranty: View {
     
     var warranty: Warranty?
     var popToAddEditProductView: (Warranty) -> Void
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -75,31 +75,31 @@ struct AddEditWarranty: View {
             }
         }
     }
-
+    
     private func validateAndSaveWarranty() {
         guard !hasWarranty || validateFields() else { return }
-
+        
         let warranty = Warranty(hasWarranty: hasWarranty, details: hasWarranty ? details : [], months: hasWarranty ? months : 0)
         popToAddEditProductView(warranty)
         dismiss()
     }
-
+    
     private func validateFields() -> Bool {
         if details.isEmpty {
             alertMessage = NSLocalizedString("add_warranty_detail", comment: "")
             showAlert = true
             return false
         }
-
+        
         if months == 0 {
             alertMessage = NSLocalizedString("warranty_duration_invalid", comment: "")
             showAlert = true
             return false
         }
-
+        
         return true
     }
-
+    
     private func validationMessage(for field: String) -> some View {
         let message: String
         switch field {

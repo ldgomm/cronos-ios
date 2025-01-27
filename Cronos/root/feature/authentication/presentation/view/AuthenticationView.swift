@@ -23,7 +23,7 @@ struct AuthenticationView: View {
             Text("Enter your API key")
                 .padding(.bottom, 8)
             
-            SecureField("Enter your API key", text: $inputText, onCommit: { 
+            SecureField("Enter your API key", text: $inputText, onCommit: {
                 isValidKey = validateApiKey(inputText)
             })
             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -33,15 +33,15 @@ struct AuthenticationView: View {
                     .stroke(isValidKey ? Color.green : Color.red, lineWidth: 2)
             )
             
-//            if isValidKey {
-                Button(action: {
-                    KeychainHelper.shared.save(inputText, forKey: "bearer")
-                    UserDefaults.standard.set(true, forKey: "isAuthenticated")
-                }) {
-                    Text("Validate")
-                }
-                .padding()
-//            }
+            //            if isValidKey {
+            Button(action: {
+                KeychainHelper.shared.save(inputText, forKey: "bearer")
+                UserDefaults.standard.set(true, forKey: "isAuthenticated")
+            }) {
+                Text("Validate")
+            }
+            .padding()
+            //            }
         }
         .padding()
     }

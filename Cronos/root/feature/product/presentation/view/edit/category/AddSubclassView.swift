@@ -39,7 +39,7 @@ struct AddSubclassView: View {
                 Section(header: Text(LocalizedStringKey("subclass_details"))) {
                     TextField("", text: $subclassName) // No se repite "Subclass Name"
                 }
-
+                
                 Button(action: submitSubclass) {
                     Text(LocalizedStringKey("submit_subclass"))
                 }
@@ -53,7 +53,7 @@ struct AddSubclassView: View {
             }
         }
     }
-
+    
     
     private func submitSubclass() {
         let subclass = Subclass(name: subclassName)
