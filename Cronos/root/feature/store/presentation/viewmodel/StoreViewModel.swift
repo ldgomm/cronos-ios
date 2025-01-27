@@ -13,7 +13,7 @@ class StoreViewModel: ObservableObject {
     @Published private(set) var stores: [Store]?
     
     private var cancellables: Set<AnyCancellable> = []
-
+    
     var searchStoresByNameUseCase: SearchStoresByNameUseCase = .init()
     var putStoreUseCase: PutStoreUseCase = .init()
     
