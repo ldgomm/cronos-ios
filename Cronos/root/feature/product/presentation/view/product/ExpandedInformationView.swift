@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExpandedInformationView: View {
     let information: Information
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {

@@ -36,7 +36,7 @@ struct ProductRowView: View {
                         .bold()
                         .font(.caption2)
                         .multilineTextAlignment(.leading)
-
+                    
                 }
                 if let owner = product.owner {
                     Text(owner)

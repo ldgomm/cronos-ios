@@ -10,7 +10,7 @@ import SwiftUI
 struct InformationCardView: View {
     let information: Information
     @State private var isExpanded: Bool = false
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             if let imageUrl = URL(string: information.image.url) {
