@@ -51,8 +51,7 @@ struct AddEditProductView: View {
     @State private var specifications: Specifications?
     @State private var addSpecifications: Bool = false
     
-    @State private var warranty: Warranty?
-    @State private var addWarranty: Bool = false
+    @State private var warranty: String?
     
     @State private var legal: String? //Done
     @State private var warning: String? //Done
@@ -286,15 +285,6 @@ struct AddEditProductView: View {
                     Text(NSLocalizedString("specifications", comment: ""))
                 }
                 
-                Section {
-                    Button(product != nil ? NSLocalizedString("update_warranty", comment: "") : NSLocalizedString("add_warranty", comment: "")) {
-                        self.addWarranty.toggle()
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                } header: {
-                    Text(NSLocalizedString("warranty", comment: ""))
-                }
-                
                 Section(header: Text(NSLocalizedString("legal_warning_info", comment: ""))) {
                     VStack(alignment: .leading) {
                         Text(NSLocalizedString("enter_legal_information", comment: ""))
@@ -314,6 +304,16 @@ struct AddEditProductView: View {
                         ))
                         .frame(height: 100)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5), lineWidth: 0.5))
+                        
+                        Text(NSLocalizedString("warranty", comment: ""))
+                            .font(.headline)
+                        TextEditor(text: Binding(
+                            get: { self.warranty ?? "" },
+                            set: { self.warranty = self.limitText($0) }
+                        ))
+                        .frame(height: 100)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5), lineWidth: 0.5))
+                        
                     }
                 }
                 
@@ -390,11 +390,6 @@ struct AddEditProductView: View {
             .sheet(isPresented: $addSpecifications) {
                 AddSpecificationsView(specifications: specifications) { newSpecifications in
                     self.specifications = newSpecifications
-                }
-            }
-            .sheet(isPresented: $addWarranty) {
-                AddEditWarranty(warranty: warranty) { newWarranty in
-                    self.warranty = newWarranty
                 }
             }
             .sheet(isPresented: $showingGroupForm) {

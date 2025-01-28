@@ -5,7 +5,8 @@
 //  Created by José Ruiz on 30/5/24.
 //
 
-import SwiftUI
+/*
+ import SwiftUI
 
 struct AddEditWarranty: View {
     @Environment(\.dismiss) var dismiss
@@ -116,3 +117,4 @@ struct AddEditWarranty: View {
             .font(.footnote)
     }
 }
+*/

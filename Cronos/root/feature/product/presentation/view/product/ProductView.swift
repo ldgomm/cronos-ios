@@ -163,7 +163,7 @@ struct ProductView: View {
                 
                 if let warranty = product.warranty {
                     SectionView(title: NSLocalizedString("warranty", comment: "")) {
-                        ProductDetailRow(label: String(format: NSLocalizedString("for_months", comment: ""), warranty.months), value: warranty.details.joined(separator: ", "))
+                        Text(warranty)
                     }
                 }
                 
