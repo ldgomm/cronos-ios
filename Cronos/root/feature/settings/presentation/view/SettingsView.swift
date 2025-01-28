@@ -22,6 +22,9 @@ struct SettingsView: View {
                         Label("Terms of use", systemImage: "person.fill.questionmark")
                     }
                 }
+                Section {
+                    Text(KeychainHelper.shared.read(forKey: "bearer") ?? "No value")
+                }
             }
             .navigationTitle("Settings")
         }

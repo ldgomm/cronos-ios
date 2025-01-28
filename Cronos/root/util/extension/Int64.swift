@@ -12,7 +12,7 @@ extension Int64 {
     var formatDate: String {
         let date = Date(timeIntervalSince1970: TimeInterval(self) / 1000)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, dd-MM-yy"
+        dateFormatter.dateFormat = "EEEE, dd-MM-yy, HH:mm"
         dateFormatter.locale = Locale(identifier: "es_ES")
         return dateFormatter.string(from: date)
     }

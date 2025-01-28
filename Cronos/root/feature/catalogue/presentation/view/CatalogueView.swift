@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CatalogueView: View {
-    @EnvironmentObject var viewModel: CatalogueViewModel
+    @EnvironmentObject var viewModel: ProductViewModel
     
     @State private var searchText: String = ""
     
@@ -22,7 +22,7 @@ struct CatalogueView: View {
     @State private var searchWorkItem: DispatchWorkItem?
     
     var filteredProducts: [Product] {
-        viewModel.products.filter { product in
+        viewModel.catalogueProducts.filter { product in
             (selectedGroup == nil || product.category.group == selectedGroup?.name) &&
             (selectedDomain == nil || product.category.domain == selectedDomain?.name) &&
             (selectedSubclass == nil || product.category.subclass == selectedSubclass?.name)
@@ -38,7 +38,7 @@ struct CatalogueView: View {
                         selectedDomain: $selectedDomain,
                         selectedSubclass: $selectedSubclass,
                         groups: viewModel.groups,
-                        products: viewModel.products
+                        products: viewModel.catalogueProducts
                     )
                     .transition(.move(edge: .top))
                     .animation(.easeInOut, value: hideFilterView)
@@ -75,8 +75,7 @@ struct CatalogueView: View {
             }
         }
         .refreshable {
-            viewModel.getProducts()
+            viewModel.getCatalogueProducts()
         }
     }
 }
-

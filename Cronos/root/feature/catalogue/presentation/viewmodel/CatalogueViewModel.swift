@@ -38,17 +38,6 @@ final class CatalogueViewModel: ObservableObject {
             .sink { (result: Result<[ProductDto], NetworkError>) in
                 switch result {
                 case .success(let success):
-                    /*success.filter { $0.category.mi == "Licores" }
-                     .sorted {
-                     if $0.label == $1.label {
-                     return $0.name < $1.name
-                     }
-                     return $0.label ?? "" < $1.label ?? ""
-                     }
-                     .forEach { product in
-                     print("\(product.name) - \(product.label ?? "") - \(product.owner ?? "")")
-                     }*/
-                    
                     self.products = success.map { $0.toProduct() }
                 case .failure(let failure):
                     handleNetworkFailure(failure)

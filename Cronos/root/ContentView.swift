@@ -21,7 +21,7 @@ struct ContentView: View {
                 }
             
             CatalogueView()
-                .environmentObject(cataLogueViewModel)
+                .environmentObject(productViewModel)
                 .tabItem {
                     Label(NSLocalizedString("catalogue", comment: ""), systemImage: "list.bullet")
                 }

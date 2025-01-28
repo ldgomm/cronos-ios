@@ -55,6 +55,7 @@ struct AddEditProductView: View {
     
     @State private var legal: String? //Done
     @State private var warning: String? //Done
+    @State private var storeId: String? //Done
     
     @State private var showAlert = false
     @State private var alertMessage = ""
@@ -71,13 +72,13 @@ struct AddEditProductView: View {
     @State private var creditCardWithoutInterest: Int = 3
     @State private var creditCardFreeMonths: Int = 0
     
-    // State variables for upload progress
-    @State private var uploadProgress: Double = 0.0
-    @State private var isUploading = false
-    
     @State private var showingGroupForm = false
     @State private var showingDomainForm = false
     @State private var showingSubclassForm = false
+    
+    // State variables for upload progress
+    @State private var uploadProgress: Double = 0.0
+    @State private var isUploading = false
     
     @State private var showRequestAlert = false
     @State private var alertRequestMessage = ""
@@ -262,6 +263,33 @@ struct AddEditProductView: View {
                 }
                 
                 Section {
+                    HStack {
+                        TextField("Keywords", text: $word, prompt: Text("Please enter only the main words"))
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                        Button(action: addKeyword) {
+                            Text("Add")
+                        }
+                        .disabled(word.isEmpty)
+                    }
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(keywords, id: \.self) { keyword in
+                                if let index = keywords.firstIndex(of: keyword) {
+                                    KeywordBubble(keyword: keyword) {
+                                        deleteKeyword(at: index)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Keywords")
+                } footer: {
+                    Text("Please add only the main words that describe your product")
+                }
+                
+                Section {
                     List {
                         ForEach(overviewResult.filter { !$0.isDeleted }) { informationResult in
                             InformationResultRow(informationResult: informationResult)
@@ -411,6 +439,13 @@ struct AddEditProductView: View {
                     dismissButton: .default(Text(NSLocalizedString("ok_button", comment: "")))
                 )
             }
+            .alert(isPresented: $showRequestAlert) {
+                Alert(
+                    title: Text("Product alert"),
+                    message: Text(alertRequestMessage),
+                    dismissButton: .default(Text("Accept"))
+                )
+            }
         }
     }
     
@@ -443,6 +478,7 @@ struct AddEditProductView: View {
             _warranty = State(wrappedValue: product.warranty)
             _legal = State(wrappedValue: product.legal)
             _warning = State(wrappedValue: product.warning)
+            _storeId = State(wrappedValue: product.storeId)
             _priceAmount = State(wrappedValue: String(product.price.amount))
             _priceCurrency = State(wrappedValue: product.price.currency)
             _offerIsActive = State(wrappedValue: product.price.offer.isActive)
@@ -545,23 +581,19 @@ struct AddEditProductView: View {
                         viewModel.putProduct(
                             product: toProduct(id: id, overview: overview, price: price)
                         ) { success in
-                            self.alertRequestMessage = "Product updated successfully!"
-                            self.showRequestAlert = true
-                        } onFailure: { error in
-                            self.alertRequestMessage = "Failed to update product: \(error)"
-                            self.showRequestAlert = true
+                            onSuccess(success)
+                        } onFailure: { failure in
+                            onFailure(failure)
                         }
                         dismiss()
                         popToRoot()
                     }
                 }
             } else {
-                if let oldMainImagePath {
-                    uploadNewImage(path: path, price: price)
-                    if !oldMainImagePath.isEmpty {
-                        deleteImageFromFirebase(for: oldMainImagePath) {
-                            print("Image deleted")
-                        }
+                if let oldMainImagePath, !oldMainImagePath.isEmpty {
+                    deleteImageFromFirebase(for: oldMainImagePath) {
+                        print("Image deleted")
+                        uploadNewImage(path: path, price: price)
                     }
                 }
             }
@@ -572,18 +604,13 @@ struct AddEditProductView: View {
     
     private func uploadNewImage(path: String, price: Price) {
         guard let compressedImageData = image?.compressImage() else {
-            print("Failed to compress image")
-            self.alertRequestMessage = "Failed to compress image."
-            self.showRequestAlert = true
+            onFailure("Failed to compress image")
             return
         }
         
         isUploading = true
         uploadImageToFirebaseWithProcessHandler(for: path, with: compressedImageData, progressHandler: { progress in
-            DispatchQueue.main.async {
-                self.uploadProgress = progress
-            }
-        }) { imageInfo in
+            DispatchQueue.main.async { self.uploadProgress = progress }}) { imageInfo in
             DispatchQueue.main.async {
                 self.isUploading = false
                 if let imageInfo = imageInfo {
@@ -592,11 +619,9 @@ struct AddEditProductView: View {
                             viewModel.putProduct(
                                 product: toProduct(id: product.id, info: imageInfo, overview: overview, price: price)
                             ) { success in
-                                self.alertRequestMessage = "Product updated successfully!"
-                                self.showRequestAlert = true
-                            } onFailure: { error in
-                                self.alertRequestMessage = "Failed to update product: \(error)"
-                                self.showRequestAlert = true
+                                onSuccess(success)
+                            } onFailure: { failure in
+                                onFailure(failure)
                             }
                             dismiss()
                             popToRoot()
@@ -606,20 +631,16 @@ struct AddEditProductView: View {
                             viewModel.postProduct(
                                 product: toProduct(info: imageInfo, overview: overview, price: price)
                             ) { success in
-                                self.alertRequestMessage = "Product uploaded successfully!"
-                                self.showRequestAlert = true
-                            } onFailure: { error in
-                                self.alertRequestMessage = "Failed to upload product: \(error)"
-                                self.showRequestAlert = true
+                                onSuccess(success)
+                            } onFailure: { failure in
+                                onFailure(failure)
                             }
                             dismiss()
                             popToRoot()
                         }
                     }
                 } else {
-                    print("Failed to upload image")
-                    self.alertRequestMessage = "Failed to upload image."
-                    self.showRequestAlert = true
+                    onFailure("Failed to upload image")
                 }
             }
         }
@@ -628,17 +649,17 @@ struct AddEditProductView: View {
     
     //Post product
     private func toProduct(info imageInfo: ImageInfo, overview: [Information], price: Price) -> Product {
-        return Product(id: UUID().uuidString, name: name, label: label, owner: owner, year: year, model: model, description: description, category: Category(group: group, domain: domain, subclass: subclass), price: price, stock: stock, image: ImageX(path: imageInfo.path, url: imageInfo.url, belongs: false), origin: origin, overview: overview,keywords: keywords, specifications: specifications, warranty: warranty, legal: legal, warning: warning)
+        return Product(id: UUID().uuidString, name: name, label: label, owner: owner, year: year, model: model, description: description, category: Category(group: group, domain: domain, subclass: subclass), price: price, stock: stock, image: ImageX(path: imageInfo.path, url: imageInfo.url, belongs: false), origin: origin, overview: overview,keywords: keywords, specifications: specifications, warranty: warranty, legal: legal, warning: warning, storeId: storeId)
     }
     
     //Put Product
     private func toProduct(id: String, overview: [Information], price: Price) -> Product {
-        return Product(id: id, name: name, label: label, owner: owner, year: year, model: model, description: description, category: Category(group: group, domain: domain, subclass: subclass), price: price, stock: stock, image: ImageX(path: oldMainImagePath, url: oldMainImageUrl, belongs: false), origin: origin, date: Date().currentTimeMillis(), overview: overview, keywords: keywords, specifications: specifications, warranty: warranty, legal: legal, warning: warning)
+        return Product(id: id, name: name, label: label, owner: owner, year: year, model: model, description: description, category: Category(group: group, domain: domain, subclass: subclass), price: price, stock: stock, image: ImageX(path: oldMainImagePath, url: oldMainImageUrl, belongs: false), origin: origin, date: Date().currentTimeMillis(), overview: overview, keywords: keywords, specifications: specifications, warranty: warranty, legal: legal, warning: warning, storeId: storeId)
     }
     
     //Put product
     private func toProduct(id: String, info imageInfo: ImageInfo, overview: [Information], price: Price) -> Product {
-        return Product(id: id, name: name, label: label, owner: owner, year: year, model: model, description: description, category: Category(group: group, domain: domain, subclass: subclass), price: price, stock: stock, image: ImageX(path: imageInfo.path, url: imageInfo.url, belongs: false), origin: origin, date: Date().currentTimeMillis(), overview: overview, keywords: keywords, specifications: specifications, warranty: warranty, legal: legal, warning: warning)
+        return Product(id: id, name: name, label: label, owner: owner, year: year, model: model, description: description, category: Category(group: group, domain: domain, subclass: subclass), price: price, stock: stock, image: ImageX(path: imageInfo.path, url: imageInfo.url, belongs: false), origin: origin, date: Date().currentTimeMillis(), overview: overview, keywords: keywords, specifications: specifications, warranty: warranty, legal: legal, warning: warning, storeId: storeId)
     }
     
     func generateOverviewResult() {
@@ -745,5 +766,19 @@ struct AddEditProductView: View {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
         return formatter
+    }
+    
+    private func onSuccess(_ success: String) {
+        alertMessage = success
+        showAlert = true
+        dismiss()
+        popToRoot()
+    }
+    
+    private func onFailure(_ failure: String) {
+        alertMessage = failure
+        showAlert = true
+        dismiss()
+        popToRoot()
     }
 }

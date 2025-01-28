@@ -10,6 +10,7 @@ import Foundation
 
 final class ProductViewModel: ObservableObject {
     @Published private(set) var products: [Product] = []
+    @Published private(set) var catalogueProducts: [Product] = []
     private var allProducts: [Product] = []
     
     @Published var groups: [Group] = []
@@ -29,6 +30,7 @@ final class ProductViewModel: ObservableObject {
     
     init() {
         getProducts()
+        getCatalogueProducts()
         getCategories()
     }
     
@@ -58,22 +60,32 @@ final class ProductViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    // Filter the array by multiple keywords across multiple fields
+    func getCatalogueProducts() {
+        getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-catalogue"))
+            .sink { (result: Result<[ProductDto], NetworkError>) in
+                switch result {
+                case .success(let success):
+                    self.catalogueProducts = success.map { $0.toProduct() }
+                case .failure(let failure):
+                    handleNetworkFailure(failure)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
     func getProductByKeywords(for keywords: String) {
-        // If there’s no input, restore the original full list
         guard !keywords.isEmpty else {
             restoreAllProducts()
             return
         }
         
-        // Split input into separate search terms
-        // e.g., "cronos bike black" -> ["cronos", "bike", "black"]
+        // Decide how to split terms (example: just split by space for now).
         let terms = keywords
             .lowercased()
             .split(separator: " ")
             .map(String.init)
         
-        // 1) For each product, figure out how many of the 'terms' match
+        // 1) Calculate matchCount for each product
         let productsWithMatchCount = allProducts.map { product -> (product: Product, matchCount: Int) in
             let matchCount = terms.reduce(into: 0) { count, term in
                 if fieldMatches(product, term: term) {
@@ -83,27 +95,41 @@ final class ProductViewModel: ObservableObject {
             return (product, matchCount)
         }
         
-        // 2) Filter out products that have zero matches
-        //    (i.e., keep products with matchCount >= 1)
+        // 2) Keep products that matched *all* terms
         let matchingProducts = productsWithMatchCount
-            .filter { $0.matchCount > 0 }
+            .filter { $0.matchCount == terms.count }
         
-        // 3) Sort the resulting products by matchCount, descending
+        // 3) Sort descending by matchCount (optional,
+        //    but everything that remains is guaranteed to have the same matchCount anyway)
         let sortedByMatches = matchingProducts.sorted { $0.matchCount > $1.matchCount }
         
-        // 4) Extract just the Product objects in sorted order
+        // 4) Update your published array
         products = sortedByMatches.map { $0.product }
     }
-    
+
     private func fieldMatches(_ product: Product, term: String) -> Bool {
-        product.name.lowercased().contains(term)
-        || (product.label?.lowercased().contains(term) ?? false)
-        || product.description.lowercased().contains(term)
-        || (product.owner?.lowercased().contains(term) ?? false)
-        || product.model.lowercased().contains(term)
-        // ... add more fields if needed
+        // Normalize term: remove spaces + lowercase
+        let normalizedTerm = term
+            .lowercased()
+            .replacingOccurrences(of: " ", with: "")
+
+        // Normalize product.model: remove spaces + lowercase
+        let normalizedModel = product.model
+            .lowercased()
+            .replacingOccurrences(of: " ", with: "")
+
+        // Only apply model search to "Ferretería"
+        return product.name.lowercased().contains(term)
+            || (product.label?.lowercased().contains(term) ?? false)
+            || (product.owner?.lowercased().contains(term) ?? false)
+            || (product.year?.lowercased().contains(term) ?? false)
+            || (
+                product.category.group == "Ferretería"
+                && normalizedModel.contains(normalizedTerm)
+            )
     }
-    
+
+
     func restoreAllProducts() {
         products = allProducts
     }

@@ -30,9 +30,7 @@ struct StoreView: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .clipShape(RoundedRectangle(cornerRadius: 11))
-                                .frame(maxWidth: .infinity, maxHeight: 300)
-                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, maxHeight: 500)
                         case .failure:
                             Image(systemName: "photo")
                                 .resizable()
@@ -104,7 +102,7 @@ struct StoreView: View {
                 }
             }
             .navigationTitle(store.name)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -155,39 +153,3 @@ struct StoreView: View {
         self.store = store
     }
 }
-
-//struct InfoSectionView<Content: View>: View {
-//    var title: String
-//    var content: String?
-//    var icon: String?
-//    var iconColor: Color?
-//    @ViewBuilder var customContent: Content
-//    
-//    init(title: String, content: String? = nil, icon: String? = nil, iconColor: Color? = nil, @ViewBuilder customContent: () -> Content = { EmptyView() }) {
-//        self.title = title
-//        self.content = content
-//        self.icon = icon
-//        self.iconColor = iconColor
-//        self.customContent = customContent()
-//    }
-//    
-//    var body: some View {
-//        VStack(alignment: .leading, spacing: 4) {
-//            Text(title)
-//                .font(.headline)
-//                .foregroundColor(.secondary)
-//            HStack {
-//                if let icon = icon, let iconColor = iconColor {
-//                    Image(systemName: icon)
-//                        .foregroundColor(iconColor)
-//                }
-//                if let content = content {
-//                    Text(content)
-//                } else {
-//                    customContent
-//                }
-//            }
-//            .padding(.bottom, 10)
-//        }
-//    }
-//}
