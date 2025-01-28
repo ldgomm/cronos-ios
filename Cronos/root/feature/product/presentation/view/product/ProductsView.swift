@@ -50,6 +50,10 @@ struct ProductsView: View {
                     }
                     .padding(.vertical)
                 }
+                .refreshable {
+                    viewModel.getProducts()
+                    viewModel.getCategories()
+                }
             }
             .navigationTitle(String(format: NSLocalizedString("products_count", comment: ""), filteredProducts.count))
             .navigationBarTitleDisplayMode(.large)
@@ -57,10 +61,7 @@ struct ProductsView: View {
                 ProductView(product: product)
                     .environmentObject(viewModel)
             }
-            .refreshable {
-                viewModel.getProducts()
-                viewModel.getCategories()
-            }
+            
             
             .searchable(text: $searchText)
             .onChange(of: searchText) { oldValue, newValue in
