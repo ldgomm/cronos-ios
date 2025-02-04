@@ -24,7 +24,6 @@ struct DependencyInjector {
     static func singleton<T>(dependency: T) {
         lock.lock()
         defer { lock.unlock() }
-        
         dependencyList[String(describing: T.self)] = dependency
     }
 }
@@ -51,6 +50,5 @@ struct DependencyInjector {
 class Singletons {
     init() {
         @Singleton var serviceable: Serviceable = Service() as Serviceable
-        // ...
     }
 }

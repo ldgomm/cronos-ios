@@ -29,20 +29,9 @@ final class Service: Serviceable {
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw NetworkError.badRequestError
                 }
-                
                 switch httpResponse.statusCode {
                 case 200:
                     return data
-                case 401:
-                    throw NetworkError.unauthorizedError
-                case 403:
-                    throw NetworkError.forbiddenError
-                case 404:
-                    throw NetworkError.notFoundError
-                case 304:
-                    throw NetworkError.notModifiedError
-                case 500...599:
-                    throw NetworkError.serverError
                 default:
                     throw NetworkError.badRequestError
                 }

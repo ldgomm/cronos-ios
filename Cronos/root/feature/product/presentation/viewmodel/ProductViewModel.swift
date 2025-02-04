@@ -94,7 +94,7 @@ final class ProductViewModel: ObservableObject {
         // 4) Extract just the Product objects in sorted order
         products = sortedByMatches.map { $0.product }
     }
-
+    
     private func fieldMatches(_ product: Product, term: String) -> Bool {
         product.name.lowercased().contains(term)
         || (product.label?.lowercased().contains(term) ?? false)

@@ -10,7 +10,7 @@ import SwiftUI
 struct SectionView<Content: View>: View {
     let title: String
     let content: () -> Content
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
