@@ -74,18 +74,29 @@ final class ProductViewModel: ObservableObject {
     }
     
     func getProductByKeywords(for keywords: String) {
-        guard !keywords.isEmpty else {
+        let trimmed = keywords.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // 1) If there's no input, restore the full list
+        guard !trimmed.isEmpty else {
             restoreAllProducts()
             return
         }
         
-        // Decide how to split terms (example: just split by space for now).
-        let terms = keywords
-            .lowercased()
-            .split(separator: " ")
-            .map(String.init)
+        // 2) Single-term if search starts with a digit, otherwise split
+        let firstCharIsDigit = trimmed.first?.isNumber ?? false
+        let terms: [String]
+        if firstCharIsDigit {
+            // Keep entire string as one term
+            terms = [trimmed.lowercased()]
+        } else {
+            // Split on spaces
+            terms = trimmed
+                .lowercased()
+                .split(separator: " ")
+                .map(String.init)
+        }
         
-        // 1) Calculate matchCount for each product
+        // 3) Compute how many terms each product matches
         let productsWithMatchCount = allProducts.map { product -> (product: Product, matchCount: Int) in
             let matchCount = terms.reduce(into: 0) { count, term in
                 if fieldMatches(product, term: term) {
@@ -95,38 +106,47 @@ final class ProductViewModel: ObservableObject {
             return (product, matchCount)
         }
         
-        // 2) Keep products that matched *all* terms
+        // 4) Filter products that match *all* terms (matchCount == terms.count)
         let matchingProducts = productsWithMatchCount
             .filter { $0.matchCount == terms.count }
         
-        // 3) Sort descending by matchCount (optional,
-        //    but everything that remains is guaranteed to have the same matchCount anyway)
+        // 5) Sort descending by match count (optional — everything has the same count anyway)
         let sortedByMatches = matchingProducts.sorted { $0.matchCount > $1.matchCount }
         
-        // 4) Update your published array
+        // 6) Update the published array
         products = sortedByMatches.map { $0.product }
     }
 
-    private func fieldMatches(_ product: Product, term: String) -> Bool {
-        // Normalize term: remove spaces + lowercase
-        let normalizedTerm = term
-            .lowercased()
-            .replacingOccurrences(of: " ", with: "")
+    // MARK: - fieldMatches
 
-        // Normalize product.model: remove spaces + lowercase
+    /// Returns `true` if `product` matches the given `term`
+    /// in *any* of the following fields:
+    ///  - `name`, `label`, `owner`, `year` (case-insensitive substring),
+    ///  - `model` (with spaces removed, also case-insensitive).
+    private func fieldMatches(_ product: Product, term: String) -> Bool {
+        let lowerTerm = term.lowercased()
+        
+        // 1) Check name, label, owner, year with normal substring matching
+        let basicFields = [
+            product.name.lowercased(),
+            product.label?.lowercased() ?? "",
+            product.owner?.lowercased() ?? "",
+            product.year?.lowercased() ?? ""
+        ]
+        
+        if basicFields.contains(where: { $0.contains(lowerTerm) }) {
+            return true
+        }
+        
+        // 2) Check the model, removing spaces from both
         let normalizedModel = product.model
             .lowercased()
             .replacingOccurrences(of: " ", with: "")
-
-        // Only apply model search to "Ferretería"
-        return product.name.lowercased().contains(term)
-            || (product.label?.lowercased().contains(term) ?? false)
-            || (product.owner?.lowercased().contains(term) ?? false)
-            || (product.year?.lowercased().contains(term) ?? false)
-            || (
-                product.category.group == "Ferretería"
-                && normalizedModel.contains(normalizedTerm)
-            )
+        
+        let normalizedTerm = lowerTerm
+            .replacingOccurrences(of: " ", with: "")
+        
+        return normalizedModel.contains(normalizedTerm)
     }
 
 
