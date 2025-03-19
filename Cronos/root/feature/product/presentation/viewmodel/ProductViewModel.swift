@@ -44,7 +44,7 @@ final class ProductViewModel: ObservableObject {
     //                     .forEach { product in
     //                         print("\(product.name) - \(product.label ?? "") - \(product.owner ?? "")")
     //                     }
-    
+ 
     func getProducts() {
         getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-products"))
             .sink { (result: Result<[ProductDto], NetworkError>) in
@@ -59,6 +59,70 @@ final class ProductViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    /*
+     func getProducts() {
+        getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-products"))
+            .sink { (result: Result<[ProductDto], NetworkError>) in
+                switch result {
+                case .success(let success):
+                    
+                    // 1) Filter out products whose model is "N/A"
+                    let filteredSuccess = success.filter { $0.model != "N/A" }
+                    
+                    // 2) Group by the product's category.group
+                    let productsByGroup = Dictionary(grouping: filteredSuccess) { $0.category.group }
+                    
+                    // We'll collect exactly *one* representative of each duplicate
+                    var singleRepresentativesOfDuplicates: [ProductDto] = []
+                    
+                    // 3) For each group, group by normalized model, detect duplicates
+                    for (_, productsInGroup) in productsByGroup {
+                        
+                        // Group by "normalized" model
+                        let groupedByModel = Dictionary(grouping: productsInGroup) {
+                            $0.model.lowercased().replacingOccurrences(of: " ", with: "")
+                        }
+                        
+                        // 4) Filter down to only those that have more than 1 product (duplicates)
+                        let duplicates = groupedByModel.filter { $1.count > 1 }
+                        
+                        // 5) From each duplicate set, just pick the *first* item as a representative
+                        //    (could also pick .first(where: ...) or any other logic you prefer)
+                        for (_, duplicateItems) in duplicates {
+                            if let representative = duplicateItems.first {
+                                singleRepresentativesOfDuplicates.append(representative)
+                            }
+                        }
+                    }
+                    
+                    // 6) Convert your single representatives to domain models (if needed)
+                    let loadedProducts = singleRepresentativesOfDuplicates.map { $0.toProduct() }
+                    
+                    // 7) Assign them to your ViewModel’s properties
+                    //    so your app/UI only shows *one row* per repeated model.
+                    self.allProducts = loadedProducts
+                    self.products = loadedProducts
+                    
+                    // 8) Print them, if you like
+                    if loadedProducts.isEmpty {
+                        print("No repeated models found (ignoring \"N/A\").")
+                    } else {
+                        print("Showing one representative for each repeated model:")
+                        for product in singleRepresentativesOfDuplicates {
+                            print("  \(product.name), group: \(product.category.group), model: \(product.model)")
+                        }
+                    }
+                    
+                case .failure(let failure):
+                    handleNetworkFailure(failure)
+                }
+            }
+            .store(in: &cancellables)
+    }
+     */
+
+
     
     func getCatalogueProducts() {
         getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-catalogue"))
