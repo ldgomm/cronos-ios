@@ -1,5 +1,5 @@
 //
-//  CodesDto.swift
+//  Codes.swift
 //  Cronos
 //
 //  Created by José Ruiz on 20/3/25.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct CodesDto: Codable {
+struct Codes {
     var EAN: String
     
-    func toCodes() -> Codes {
-        return Codes(EAN: EAN)
+    func toCodesDto() -> CodesDto {
+        return CodesDto(EAN: EAN)
     }
 }

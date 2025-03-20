@@ -31,13 +31,14 @@ struct Product: Hashable, Identifiable {
     var date: Int64 = Date().currentTimeMillis()
     var overview: [Information]
     var keywords: [String]? = nil
+    var codes: Codes? = nil
     var specifications: Specifications? = nil
     var warranty: String? = nil
     var legal: String? = nil
     var warning: String? = nil
     var storeId: String? = nil
     
-    init(id: String, name: String, label: String? = nil, owner: String? = nil, year: String? = nil, model: String, description: String, category: Category, price: Price, stock: Int, image: ImageX, origin: String, date: Int64 = Date().currentTimeMillis(), overview: [Information], keywords: [String]? = nil, specifications: Specifications? = nil, warranty: String? = nil, legal: String? = nil, warning: String? = nil, storeId: String? = nil) {
+    init(id: String, name: String, label: String? = nil, owner: String? = nil, year: String? = nil, model: String, description: String, category: Category, price: Price, stock: Int, image: ImageX, origin: String, date: Int64 = Date().currentTimeMillis(), overview: [Information], keywords: [String]? = nil, codes: Codes? = nil, specifications: Specifications? = nil, warranty: String? = nil, legal: String? = nil, warning: String? = nil, storeId: String? = nil) {
         self.id = id
         self.name = name
         self.label = label
@@ -53,6 +54,7 @@ struct Product: Hashable, Identifiable {
         self.date = date
         self.overview = overview
         self.keywords = keywords
+        self.codes = codes
         self.specifications = specifications
         self.warranty = warranty
         self.legal = legal
@@ -61,6 +63,6 @@ struct Product: Hashable, Identifiable {
     }
     
     func toProductDto() -> ProductDto {
-        return ProductDto(id: id, name: name, label: label, owner: owner, year: year, model: model, description: description, category: category.toCategoryDto(), price: price.toPriceDto(), stock: stock, image: image.toImagexDto(), origin: origin, date: date, overview: overview.map { $0.toInformationDto() }, keywords: keywords, specifications: specifications?.toSpecificationsDto(), warranty: warranty, legal: legal, warning: warning, storeId: storeId)
+        return ProductDto(id: id, name: name, label: label, owner: owner, year: year, model: model, description: description, category: category.toCategoryDto(), price: price.toPriceDto(), stock: stock, image: image.toImagexDto(), origin: origin, date: date, overview: overview.map { $0.toInformationDto() }, keywords: keywords, codes: codes?.toCodesDto(), specifications: specifications?.toSpecificationsDto(), warranty: warranty, legal: legal, warning: warning, storeId: storeId)
     }
 }
