@@ -122,8 +122,6 @@ final class ProductViewModel: ObservableObject {
     }
      */
 
-
-    
     func getCatalogueProducts() {
         getProductsUseCase.invoke(from: getUrl(endpoint: "cronos-catalogue"))
             .sink { (result: Result<[ProductDto], NetworkError>) in

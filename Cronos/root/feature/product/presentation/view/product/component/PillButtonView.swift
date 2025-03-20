@@ -1,5 +1,5 @@
 //
-//  PillButton.swift
+//  PillButtonView.swift
 //  Cronos
 //
 //  Created by José Ruiz on 18/3/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PillButton: View {
+struct PillButtonView: View {
     let label: String
     let isSelected: Bool
     let action: () -> Void

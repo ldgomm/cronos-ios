@@ -16,9 +16,6 @@ struct ProductsView: View {
     @State private var selectedGroup: Group? = nil
     @State private var selectedDomain: Domain? = nil
     @State private var selectedSubclass: Subclass? = nil
-    @State private var hideFilterView: Bool = false
-    @State private var previousScrollOffset: CGFloat = 0
-    @State private var currentScrollOffset: CGFloat = 0
     
     @State private var searchWorkItem: DispatchWorkItem?
     
@@ -32,28 +29,20 @@ struct ProductsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                if !hideFilterView {
-                    FilterView(selectedGroup: $selectedGroup, selectedDomain: $selectedDomain, selectedSubclass: $selectedSubclass, groups: viewModel.groups, products: viewModel.products)
-                        .transition(.move(edge: .top))
-                        .animation(.easeInOut, value: hideFilterView)
-                }
-                
-                ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(filteredProducts.sorted { $0.date > $1.date }) { product in
-                            NavigationLink(value: product) {
-                                ProductRowView(product: product)
-                                    .padding(.horizontal, 8)
-                            }
+            ScrollView {
+                FilterView(selectedGroup: $selectedGroup, selectedDomain: $selectedDomain, selectedSubclass: $selectedSubclass, groups: viewModel.groups, products: viewModel.products)
+                LazyVStack(spacing: 8) {
+                    ForEach(filteredProducts.sorted { $0.date > $1.date }) { product in
+                        NavigationLink(value: product) {
+                            ProductRowView(product: product)
+                                .padding(.horizontal, 8)
                         }
                     }
-                    .padding(.vertical)
                 }
-                .refreshable {
-                    viewModel.getProducts()
-                    viewModel.getCategories()
-                }
+            }
+            .refreshable {
+                viewModel.getProducts()
+                viewModel.getCategories()
             }
             .navigationTitle(String(format: NSLocalizedString("products_count", comment: ""), filteredProducts.count))
             .navigationBarTitleDisplayMode(.large)
@@ -64,7 +53,7 @@ struct ProductsView: View {
             
             
             .searchable(text: $searchText)
-            .onChange(of: searchText) { oldValue, newValue in
+            .onChange(of: searchText) { _, newValue in
                 // Cancel the previous scheduled work item (if any) to avoid spamming filters
                 searchWorkItem?.cancel()
                 
@@ -95,23 +84,4 @@ struct ProductsView: View {
                 .environmentObject(viewModel)
         }
     }
-}
-
-func productsByCreationDate(_ filteredProducts: [Product]) -> [String: [Product]] {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE, dd-MM-yy"
-    
-    var classifiedProducts: [String: [Product]] = [:]
-    
-    for product in filteredProducts {
-        let date = Date(timeIntervalSince1970: TimeInterval(product.date) / 1000)
-        let formattedDate = dateFormatter.string(from: date)
-        
-        if classifiedProducts[formattedDate] == nil {
-            classifiedProducts[formattedDate] = []
-        }
-        classifiedProducts[formattedDate]?.append(product)
-    }
-    
-    return classifiedProducts
 }

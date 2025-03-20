@@ -24,7 +24,7 @@ struct ScrollablePillBar: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     // "All" pill
-                    PillButton(
+                    PillButtonView(
                         label: "All",
                         isSelected: selected == nil,
                         action: { onSelect(nil) }
@@ -32,7 +32,7 @@ struct ScrollablePillBar: View {
                     
                     // One pill for each item
                     ForEach(items, id: \.self) { item in
-                        PillButton(
+                        PillButtonView(
                             label: item,
                             isSelected: selected == item,
                             action: { onSelect(item) }
